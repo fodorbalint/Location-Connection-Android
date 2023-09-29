@@ -21,6 +21,7 @@ namespace LocationConnection
 	{
 		public override void OnMessageReceived(RemoteMessage message)
 		{
+            System.Diagnostics.Debug.WriteLine(DateTime.UtcNow.ToString(@"yyyy-MM-dd HH\:mm\:ss.fff") + " ---------- OnMessageReceived ----------" + System.Environment.NewLine);
 			Intent intent = new Intent("balintfodor.locationconnection.ChatReceiver");
 			intent.PutExtra("fromuser", message.Data["fromuser"]);
 			intent.PutExtra("touser", message.Data["touser"]);
@@ -43,7 +44,9 @@ namespace LocationConnection
 
 		public override async void OnNewToken(string p0)
 		{
-			base.OnNewToken(p0);
+            System.Diagnostics.Debug.WriteLine(DateTime.UtcNow.ToString(@"yyyy-MM-dd HH\:mm\:ss.fff") + " ---------- OnNewToken ----------" + System.Environment.NewLine);
+
+            base.OnNewToken(p0);
 
 			File.WriteAllText(BaseActivity.firebaseTokenFile, p0);
 			File.WriteAllText(BaseActivity.tokenUptoDateFile, "False");

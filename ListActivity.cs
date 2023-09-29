@@ -40,6 +40,7 @@ using Xamarin.Essentials;
 using static Android.Gms.Maps.GoogleMap;
 using AndroidX.Core.Content;
 using Android.Webkit;
+using Firebase;
 
 namespace LocationConnection
 {
@@ -143,11 +144,12 @@ namespace LocationConnection
             try
             {
                 base.OnCreate(savedInstanceState);
-				//Xamarin.Essentials.Platform.Init(this, savedInstanceState); needed?
+			//Xamarin.Essentials.Platform.Init(this, savedInstanceState); needed?
 
 				onCreateError = false;
 				thisInstance = this;
-				initialized = true;
+				initialized = true;				
+
 				GetScreenMetrics(true);
 				c.LoadSettings(false); //overwrites DisplaySize
 				System.Net.ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicy) => { return true; }; //For using SSL. Otherwise we can get: Error: TrustFailure (Authentication failed, see inner exception.)				
@@ -469,9 +471,9 @@ namespace LocationConnection
 				NoResult = FindViewById<TextView>(Resource.Id.NoResult);
 				MapContainer = FindViewById<LinearLayout>(Resource.Id.MapContainer);
 
-				mapFragment = (SupportMapFragment)SupportFragmentManager.FindFragmentById(Resource.Id.ListViewMap);
+                mapFragment = SupportFragmentManager.FindFragmentById(Resource.Id.ListViewMap) as SupportMapFragment;
 
-				MapStreet = FindViewById<Button>(Resource.Id.MapStreet);
+                MapStreet = FindViewById<Button>(Resource.Id.MapStreet);
 				MapSatellite = FindViewById<Button>(Resource.Id.MapSatellite);
 				UserSearchList = FindViewById<GridView>(Resource.Id.UserSearchList);
 				ReloadPulldown = FindViewById<ImageView>(Resource.Id.ReloadPulldown);
@@ -494,6 +496,7 @@ namespace LocationConnection
 				UserSearchList.SetVerticalSpacing((int)Math.Round(2 * pixelDensity));
 				UserSearchList.SetHorizontalSpacing((int)Math.Round(2 * pixelDensity));
 
+				Console.WriteLine("mapFragment " + (mapFragment is null) + " " + (MapStreet is null));
 				mapFragment.GetMapAsync(this);
 				imm = (InputMethodManager)GetSystemService(Context.InputMethodService);
 				c.view = MainLayout;
@@ -546,7 +549,9 @@ namespace LocationConnection
 				MenuChatList.Click += MenuChatList_Click;
 				MenuChatList.Touch += MenuChatList_Touch;
 
-				c.Log("ListActivity OnCreate end");
+				//FirebaseApp.InitializeApp(this); nneded?
+
+            c.Log("ListActivity OnCreate end");
 			}
             catch (Exception ex)
             {
@@ -565,7 +570,7 @@ namespace LocationConnection
 			try {
 				base.OnResume();
 
-				/*Stopwatch stw = new Stopwatch();
+                /*Stopwatch stw = new Stopwatch();
 				stw.Start();
 
 				WebView view = new WebView(this);
