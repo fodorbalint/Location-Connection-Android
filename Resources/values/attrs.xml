@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<declare-styleable name="Snackbar">
+		<attr name="message" format="string" />
+		<attr name="showButton" format="boolean" />
+	</declare-styleable>
+</resources>

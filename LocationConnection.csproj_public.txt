@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net7.0-android</TargetFramework>
+    <SupportedOSPlatformVersion>21</SupportedOSPlatformVersion>
+    <OutputType>Exe</OutputType>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationId>com.companyname.AndroidApp1</ApplicationId>
+    <ApplicationVersion>1</ApplicationVersion>
+    <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+    <AndroidSigningKeyStore>fodorbalint.keystore</AndroidSigningKeyStore>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+    <AndroidKeyStore>True</AndroidKeyStore>
+    <AndroidSigningStorePass>w7o6k212</AndroidSigningStorePass>
+    <AndroidSigningKeyAlias>fodorbalint</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass>w7o6k212</AndroidSigningKeyPass>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <AndroidKeyStore>True</AndroidKeyStore>
+    <AndroidSigningStorePass>*</AndroidSigningStorePass>
+    <AndroidSigningKeyAlias>*</AndroidSigningKeyAlias>
+    <AndroidSigningKeyPass>*</AndroidSigningKeyPass>
+    <AndroidPackageFormat>apk</AndroidPackageFormat>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="google-services.json" />
+    <None Remove="Resources\drawable\roundButton.xml" />
+    <None Remove="Resources\layout\Snackbar.xml" />
+    <None Remove="Resources\values\attrs.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <GoogleServicesJson Include="google-services.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Xamarin.AndroidX.ConstraintLayout" Version="2.1.4.7" />
+    <PackageReference Include="Xamarin.Firebase.Messaging" Version="123.1.2.2" />
+    <PackageReference Include="Xamarin.GooglePlayServices.Base" Version="118.3.0.1" />
+    <PackageReference Include="Xamarin.GooglePlayServices.Location" Version="121.0.1.1" />
+    <PackageReference Include="Xamarin.GooglePlayServices.Maps" Version="118.1.0.3" />
+  </ItemGroup>
+</Project>
